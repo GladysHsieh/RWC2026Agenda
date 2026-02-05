@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <title>RWC 2026 Agenda - Complete Landscape</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
+        
+        :root {
+            --primary: #003366;
+            --secondary: #005b99;
+            --bg-color: #f0f2f5;
+            --text-main: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            min-width: 1600px; /* 強制寬度以確保橫向排版不擠壓 */
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(to right, #003366, #004080);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 4px solid #ffca28;
+        }
+
+        header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; }
+        header p { margin: 8px 0 0; opacity: 0.9; font-size: 1.1rem; }
+
+        /* Grid Layout */
+        .agenda-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* 三欄等寬 */
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-column {
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+        .day-column:last-child { border-right: none; }
+
+        /* Day Header */
+        .day-header {
+            background-color: #f8fafc;
+            color: var(--primary);
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .events-wrapper {
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        /* Event Card */
+        .event {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        /* Event Types (Left Border Color) */
+        .type-session { border-left: 5px solid #005b99; } /* 藍：一般議程 */
+        .type-break { border-left: 5px solid #ffca28; background-color: #fffdf5; } /* 黃：休息 */
+        .type-special { border-left: 5px solid #7e57c2; background-color: #fbfaff; } /* 紫：特邀演講/Keynote */
+        .type-lunch { border-left: 5px solid #48bb78; background-color: #f0fff4; } /* 綠：午餐 */
+        .type-social { border-left: 5px solid #ed8936; background-color: #fffaf0; } /* 橘：晚宴/社交 */
+        .type-reg { border-left: 5px solid #718096; background-color: #f7fafc; } /* 灰：報到 */
+
+        /* Time & Title */
+        .time-badge {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .event-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .chair {
+            font-size: 0.9rem;
+            color: #718096;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        /* Paper Details */
+        .paper {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e0;
+        }
+
+        .paper-en {
+            display: block;
+            font-weight: 600;
+            color: #2b6cb0;
+            font-size: 0.95rem;
+            line-height: 1.3;
+        }
+
+        .paper-zh {
+            display: block;
+            color: #2d3748;
+            font-size: 0.9rem;
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+
+        .authors {
+            font-size: 0.85rem;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+        
+        .affiliations {
+            display: block;
+            font-size: 0.8rem;
+            color: #718096;
+            font-style: italic;
+            margin-top: 2px;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #718096;
+            font-size: 0.8rem;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { padding: 0; background: white; -webkit-print-color-adjust: exact; }
+            .container { width: 100%; min-width: 0; box-shadow: none; border-radius: 0; }
+            .agenda-grid { display: grid !important; } /* 強制列印時保持Grid */
+            .day-header { position: static; border: 1px solid #000; background: #eee; }
+            .event { break-inside: avoid; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>2026年真實世界密碼學會議 </h1>
+        <h1>Real World Crypto Symposium 2026 - Taipei Agenda</h1>
+        <p>完整詳細議程表 (Full Detailed Schedule) | March 9 - 11, 2026</p>
+    </header>
+
+    <div class="agenda-grid">
+        
+        <div class="day-column">
+            <div class="day-header">3/9 (Mon) 星期一</div>
+            <div class="events-wrapper">
+                
+                <div class="event type-reg">
+                    <div class="time-badge">08:00 - 09:00</div>
+                    <div class="event-title">Registration｜報到</div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">09:00 - 09:15</div>
+                    <div class="event-title">Welcome｜開幕致詞</div>
+                    <div class="chair">RWC 2026 General Chair｜大會總主席</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">09:15 - 10:35</div>
+                    <div class="event-title">Session: Beyond Secure Messaging<br>安全通訊的下一篇章</div>
+                    <div class="chair">Chair｜主持人：TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">A Practical Wrapper Protocol for Metadata-Hiding in Messaging</span>
+                        <span class="paper-zh">通訊中繼資料隱匿之實用封裝協定</span>
+                        <div class="authors"><span class="label">Authors:</span> Lea Thiemt, Paul Rösler, Alexander Bienstock, Rolfe Schmidt, Yevgeniy Dodis</div>
+                        <div class="affiliations">FAU Erlangen-Nürnberg, J.P. Morgan AI Research, Signal Messenger, NYU</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Advanced Browsing Protection for Facebook Messenger</span>
+                        <span class="paper-zh">Facebook Messenger 之進階瀏覽防護</span>
+                        <div class="authors"><span class="label">Authors:</span> Emma Connor, Artem Ignatyev, Kevin Lewi</div>
+                        <div class="affiliations">Meta</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Improving the Trustworthiness of JavaScript on the Web</span>
+                        <span class="paper-zh">提升網頁 JavaScript 之可信度</span>
+                        <div class="authors"><span class="label">Authors:</span> Ezzudin Alkotob, Giulio Berra, Benjamin Beurdouche, Richard Hansen, Daniel Huigens, Dennis Jackson, Cory Francis Myers, Michael Rosenberg</div>
+                        <div class="affiliations">Meta, Freedom of Press Foundation, Mozilla, Proton AG, Cloudflare</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Signal Lost (Integrity): The Signal App is More than the Sum of its Protocols</span>
+                        <span class="paper-zh">訊號遺失(完整性): Signal App之整體大於協定總和</span>
+                        <div class="authors"><span class="label">Authors:</span> Kien Tuong Truong, Noemi Terzo, Peter Schwabe, Kenneth Paterson</div>
+                        <div class="affiliations">ETH Zurich, Max-Planck Institute for Security and Privacy</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">10:35 - 11:05</div>
+                    <div class="event-title">Coffee Break｜茶敘</div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">11:05 - 11:35</div>
+                    <div class="event-title">Levchin Prize</div>
+                    <div class="chair">Chair: Dan Boneh</div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">11:35 - 12:05</div>
+                    <div class="event-title">Invited Talk I｜特邀演講 I</div>
+                </div>
+
+                <div class="event type-lunch">
+                    <div class="time-badge">12:05 - 13:35</div>
+                    <div class="event-title">Lunch｜午餐</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">14:00 - 15:10</div>
+                    <div class="event-title">Session: Verification and Testing<br>驗證與測試</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">Finding Bugs and Features Using Cryptographically-Informed Functional Testing</span>
+                        <span class="paper-zh">運用具密碼學資訊之功能性測試尋找漏洞與特徵</span>
+                        <div class="authors"><span class="label">Authors:</span> Giacomo Fenzi, Jan Gilcher, Fernando Virdia</div>
+                        <div class="affiliations">EPFL, ETH Zurich, University of Surrey</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Formosa Crypto: End-to-End Formally Verified Crypto Software</span>
+                        <span class="paper-zh">Formosa Crypto：端對端形式化驗證之密碼軟體</span>
+                        <div class="authors"><span class="label">Authors:</span> José Bacelar Almeida, Gustavo Xavier, Delerue Marinho Alves, Santiago Arranz-Olmos, Manuel Barbosa, Francisca Barros, Gilles Barthe, Lionel Blatter, Chitchanok Chuengsatiansup, Ignacio Cuevas, François Dupressoir, Luís Esquível, Andreas Hülsing, Benjamin Grégoire, Ruben Gonzalez, Jan Jancar, Vincent Hwang, Vincent Laporte, Jean-Christophe Léchenet, Ting-han Lim, Cameron Low, Tiago Oliveira, Hugo Pacheco, Swarn Priya, Miguel Quaresma, Rolfe Schmidt, Peter Schwabe, Antoine Séré, Basavesh Ammanaghatta Shivakumar, Pierre-Yves Strub, Lucas Tabary-Maujean, Yuval Yarom, Zhiyuan Zhang, Jieyu Zheng</div>
+                        <div class="affiliations">Universidade do Minho, PQShield, MPI-SP, INESC TEC, IMDEA, Signal, Neodyme AG, et al.</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">mlkem-native: a Unified, Fast and Verified ML-KEM Library</span>
+                        <span class="paper-zh">mlkem-native：整合式、高效能且可驗證之 ML-KEM 函式庫</span>
+                        <div class="authors"><span class="label">Authors:</span> Hanno Becker, Matthias J. Kannwischer, Dusan Kostic, John Harrison, Rod Chapman</div>
+                        <div class="affiliations">Amazon Web Services, Chelpis</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Formally Verifying Circuits for Zero Knowledge Proofs</span>
+                        <span class="paper-zh">零知識證明電路之形式化驗證</span>
+                        <div class="authors"><span class="label">Authors:</span> Alex Ozdemir, Shankara Pailoor</div>
+                        <div class="affiliations">MPI-SP / Georgia Tech, Veridise</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Compositional Formal Verification of SNARKs with ArkLib</span>
+                        <span class="paper-zh">基於 ArkLib 之 SNARKs 組合式形式化驗證</span>
+                        <div class="authors"><span class="label">Authors:</span> Quang Dao, Alexander Hicks, Devon Tuma, Julian Sutherland, Katerina Hristova, Frantisek Silvasi, Ilia Vlasov, Chung Thai Nguyen</div>
+                        <div class="affiliations">CMU, Ethereum Foundation, Nethermind, Imperial College London</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">15:10 - 15:40</div>
+                    <div class="event-title">Coffee Break｜茶敘</div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">15:40 - 16:10</div>
+                    <div class="event-title">TBA (待定)</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">16:10 - 18:15</div>
+                    <div class="event-title">Session: Hardware<br>硬體安全</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">Migrating a Silicon Root of Trust to Post-Quantum Crypto</span>
+                        <span class="paper-zh">晶片信任根至後量子密碼之遷移</span>
+                        <div class="authors"><span class="label">Authors:</span> Amin Abdulrahman, Andrew 'bunnie' Huang, Evan Apinis, Matthias J. Kannwischer, Ruben Niederhagen, Felix Oberhansl, Hoang Nguyen, Hien Pham, Jade Philipoom, Dominic Rizzo, Robert Schilling, Peter Schwabe, Tobias Stelzer, Augustine Tang, Andreas Zankl</div>
+                        <div class="affiliations">MPI-SP, zeroRISC, Chelpis, Academia Sinica, Fraunhofer AISEC, Rivos Inc.</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Chypnosis: Undervolting-based Static Side-channel Attacks</span>
+                        <span class="paper-zh">Chypnosis：基於降壓之靜態旁路攻擊</span>
+                        <div class="authors"><span class="label">Authors:</span> Kyle Mitard, Saleh Khalaj Monfared, Fatemeh Khojasteh, Dana Robert Dumitru, Yuval Yarom, Shahin Tajik</div>
+                        <div class="affiliations">WPI, Ruhr University Bochum, University of Adelaide</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">TEE.fail: Breaking Trusted Execution Environments via Memory Bus Interposition</span>
+                        <span class="paper-zh">TEE.fail：藉由記憶體匯流排攔截攻破可信執行環境</span>
+                        <div class="authors"><span class="label">Authors:</span> Jalen Chuang, Alex Seto, Nicolas Berrios, Stephan van Schaik, Christina Garman, Daniel Genkin</div>
+                        <div class="affiliations">Georgia Tech, Purdue University, van Schaik LLC</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Kerckhoff's Principle in Practice: Addressing Security by Obscurity in Secure Hardware</span>
+                        <span class="paper-zh">Kerckhoffs 原則之實踐：解決安全硬體中之隱匿式安全</span>
+                        <div class="authors"><span class="label">Authors:</span> Vojtech Suchanek, Jan Jancar, Jan Kvapil, Petr Svenda, Łukasz Chmielewski</div>
+                        <div class="affiliations">Masaryk University</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Encryption in the Microarchitectural World</span>
+                        <span class="paper-zh">微架構層級之加密技術</span>
+                        <div class="authors"><span class="label">Authors:</span> Ping-Lun Wang, Fraser Brown, Riccardo Paccagnella, Eyal Ronen, Riad S. Wahby, Yuval Yarom</div>
+                        <div class="affiliations">CMU, Tel Aviv University, Ruhr University Bochum</div>
+                    </div>
+                </div>
+
+                <div class="event type-social">
+                    <div class="time-badge">18:45 - 20:45</div>
+                    <div class="event-title">Reception｜歡迎晚宴</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-column">
+            <div class="day-header">3/10 (Tue) 星期二</div>
+            <div class="events-wrapper">
+                
+                <div class="event type-session">
+                    <div class="time-badge">09:00 - 10:20</div>
+                    <div class="event-title">Session: Real World Privacy<br>真實世界中的隱私</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">Deploying Research: On Building and Shipping an Anonymous Whistleblowing System</span>
+                        <span class="paper-zh">研究部署：建構並發布匿名揭弊系統</span>
+                        <div class="authors"><span class="label">Authors:</span> Daniel Hugenroth, Luke Hoyland, Sam Cutler, Alastair Beresford</div>
+                        <div class="affiliations">University of Cambridge, The Guardian</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">SecureDrop Next Generation: Lessons from a Decade of Deployment</span>
+                        <span class="paper-zh">SecureDrop 次世代：十年部署經驗之回顧與反思</span>
+                        <div class="authors"><span class="label">Authors:</span> Giulio Berra, Felix Linker, Luca Maier, Cory Francis Myers, Kenneth G. Paterson, Rowen Shane, Shannon Veitch</div>
+                        <div class="affiliations">Freedom of the Press Foundation, ETH Zurich</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Real-World Steganography Against Content-Based Censorship</span>
+                        <span class="paper-zh">對抗現代通訊軟體內容審查之實務隱寫術</span>
+                        <div class="authors"><span class="label">Authors:</span> Boya Wang, Markus Schiffermüller, Klim Kireev, Carmela Troncoso</div>
+                        <div class="affiliations">MPI-SP, EPFL, TU Graz</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">At-Compromise Security: The Case for Alert Blindness</span>
+                        <span class="paper-zh">帳號遭入侵後的安全性：警報盲點之探討</span>
+                        <div class="authors"><span class="label">Authors:</span> Martin R. Albrecht, Simone Colombo, Benjamin Dowling, Rikke Bjerg Jensen</div>
+                        <div class="affiliations">King's College London, Royal Holloway</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">10:20 - 10:50</div>
+                    <div class="event-title">Coffee Break｜茶敘</div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">10:50 - 11:20</div>
+                    <div class="event-title">Invited Talk｜特邀演講</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">11:20 - 12:00</div>
+                    <div class="event-title">Session: Login Security<br>登入安全</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">TBA</span>
+                        <div class="authors"><span class="label">Authors:</span> Matilda Backendal, Kenneth Paterson, Matteo Scarlata, Giovanni Torrisi</div>
+                        <div class="affiliations">ETH Zurich</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Improving Account Security for Victims of Account Compromise through Client-Side Access Logging</span>
+                        <span class="paper-zh">強化帳號受駭者之安全性</span>
+                        <div class="authors"><span class="label">Authors:</span> Carolina Ortega Pérez, Paul Gerhart, Alaa Daffalla, Thomas Ristenpart</div>
+                        <div class="affiliations">Cornell University, TU Wien, Cornell Tech</div>
+                    </div>
+                </div>
+
+                <div class="event type-lunch">
+                    <div class="time-badge">12:00 - 13:30</div>
+                    <div class="event-title">Lunch｜午餐</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">13:30 - 14:50</div>
+                    <div class="event-title">Session: Post-Quantum Constructions<br>後量子建構</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">Keeping up with the KEMbiners</span>
+                        <span class="paper-zh">KEM 組合器之最新演進</span>
+                        <div class="authors"><span class="label">Authors:</span> Kathrin Hövelmanns, Deirdre Connolly, Andreas Hülsing, Stavros Kousidis, Matthias Meijers</div>
+                        <div class="affiliations">Eindhoven University, Selkie Cryptography, BSI</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Efficient Threshold ML-DSA</span>
+                        <span class="paper-zh">高效門檻式 ML-DSA</span>
+                        <div class="authors"><span class="label">Authors:</span> Guilhem Niot, Thomas Espitau, Thomas Prest, Rafael del Pino, Sofía Celi</div>
+                        <div class="affiliations">PQShield, Univ Rennes, Brave, University of Bristol</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">XHMQV: Better Efficiency and Stronger Security for Signal's Initial Handshake based on HMQV</span>
+                        <span class="paper-zh">XHMQV：提升 Signal 初始握手之效率與安全性</span>
+                        <div class="authors"><span class="label">Authors:</span> Rune Fiedler, Felix Günther, Jiaxin Pan, Runzhi Zeng, Rolfe Schmidt</div>
+                        <div class="affiliations">ETH Zurich, IBM Research, University of Kassel, Signal Messenger</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">A Call to Action: Transitioning Signal's Private Group System to Quantum-Safe</span>
+                        <span class="paper-zh">行動呼籲：將 Signal 私密群組系統遷移至量子安全架構</span>
+                        <div class="authors"><span class="label">Authors:</span> Graeme Connell, Sebastian Faller, Felix Günther, Julia Hesse, Vadim Lyubashevsky, Rolfe Schmidt</div>
+                        <div class="affiliations">Signal Messenger, IBM Research, ETH Zurich</div>
+                    </div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">14:55 - 15:35</div>
+                    <div class="event-title">Session: Cloud Encryption<br>雲端加密</div>
+                    
+                    <div class="paper">
+                        <span class="paper-en">End-to-End Encrypted Collaborative Documents</span>
+                        <span class="paper-zh">端對端加密之協作文件</span>
+                        <div class="authors"><span class="label">Authors:</span> Christian Knabenhans, Zayd Maradni, Carmela Troncoso</div>
+                        <div class="affiliations">EPFL, MPI-SWS, MPI-SP</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Random-Access AEAD for Fast Lightweight Online Encryption</span>
+                        <span class="paper-zh">用於快速輕量級線上加密之隨機存取 AEAD</span>
+                        <div class="authors"><span class="label">Authors:</span> Andres Fabrega, Greg Rubin, Julia Len, Thomas Ristenpart</div>
+                        <div class="affiliations">Cornell University, Snowflake, UNC Chapel Hill, Cornell Tech</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">15:35 - 16:05</div>
+                    <div class="event-title">Coffee Break｜茶敘</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">16:05 - 17:35</div>
+                    <div class="event-title">Session: Cryptography and Society<br>密碼學與社會</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">What is cryptography hiding from itself?</span>
+                        <span class="paper-zh">密碼學對自身隱瞞了什麼？</span>
+                        <div class="authors"><span class="label">Authors:</span> Diego F. Aranha, Nikolas Melissaris</div>
+                        <div class="affiliations">Aarhus University, IRIF</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">"Security vs. Interoperability'': Real Tension or False Dichotomy?</span>
+                        <span class="paper-zh">「安全性與互通性」：真實張力或錯誤二分法？</span>
+                        <div class="authors"><span class="label">Authors:</span> Daji Landis, Sunoo Park, Elettra Bietti</div>
+                        <div class="affiliations">NYU, Northeastern University</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">CRA and Cryptography: The Story Thus Far</span>
+                        <span class="paper-zh">歐盟網路韌性法案 (CRA) 與密碼學：目前為止的故事</span>
+                        <div class="authors"><span class="label">Authors:</span> Markku-Juhani Saarinen</div>
+                        <div class="affiliations">Tampere University</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">When Proofs Aren’t Enough: Putting Cryptosystems in Context</span>
+                        <span class="paper-zh">當證明不足時：將密碼系統置於脈絡中檢視</span>
+                        <div class="authors"><span class="label">Authors:</span> Gabriel Kaptchuk, Ran Canetti, Julie Ha</div>
+                        <div class="affiliations">UMD, Boston University</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Building Cryptographic Intellectual Infrastructure Where It Means Most...</span>
+                        <span class="paper-zh">在最需要之處建立密碼學知識基礎設施：黎巴嫩危機後之應用密碼學教學經驗</span>
+                        <div class="authors"><span class="label">Authors:</span> Nadim Kobeissi</div>
+                        <div class="affiliations">American University of Beirut</div>
+                    </div>
+                </div>
+
+                <div class="event type-social">
+                    <div class="time-badge">17:45 - 19:45</div>
+                    <div class="event-title">Light Food and Beer｜輕食與啤酒之夜</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="day-column">
+            <div class="day-header">3/11 (Wed) 星期三</div>
+            <div class="events-wrapper">
+                
+                <div class="event type-session">
+                    <div class="time-badge">09:00 - 10:20</div>
+                    <div class="event-title">Session: Privacy-Enhancing Technologies<br>隱私強化技術</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">Counter Galois Onion (CGO): Fast Non-Malleable Onion Encryption for Tor</span>
+                        <span class="paper-zh">CGO：Tor 之高速不可延展洋蔥加密</span>
+                        <div class="authors"><span class="label">Authors:</span> Jean Paul Degabriele, Alessandro Melloni, Jean-Pierre Münch, Martijn Stam</div>
+                        <div class="affiliations">Technology Innovation Institute, Simula UiB, TU Darmstadt</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Let’s Aggregate? Towards making private telemetry as ubiquitous as TLS</span>
+                        <span class="paper-zh">Let’s Aggregate？讓隱私遙測如 TLS 般普及</span>
+                        <div class="authors"><span class="label">Authors:</span> Ryan Lehmkuhl, Henry Corrigan-Gibbs, Emma Dauterman, David J. Wu</div>
+                        <div class="affiliations">MIT, Stanford, UT Austin</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">How Private Can Private Advertising Really Be?</span>
+                        <span class="paper-zh">「隱私廣告」究竟能有多隱私？</span>
+                        <div class="authors"><span class="label">Authors:</span> Kyle Hogan, Alishah Chator, Gabriel Kaptchuk, Mayank Varia, Srinivas Devadas</div>
+                        <div class="affiliations">MIT, Baruch College, UMD, Boston University</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Sprinkle Differential Privacy on a Bit of Everything</span>
+                        <span class="paper-zh">將差分隱私融入多元應用</span>
+                        <div class="authors"><span class="label">Authors:</span> Daniel Pöllmann, Tianxin Tang</div>
+                        <div class="affiliations">ETH Zurich, Eindhoven University of Technology</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">10:20 - 10:50</div>
+                    <div class="event-title">Coffee Break｜茶敘</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">10:50 - 11:30</div>
+                    <div class="event-title">Session: Bluetooth-based Protocols<br>藍牙協定安全</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">Security of Bluetooth: A Cryptographic View on Analyzing a Leviathan</span>
+                        <span class="paper-zh">藍牙安全性：以密碼學視角剖析龐然巨獸</span>
+                        <div class="authors"><span class="label">Authors:</span> Marc Fischlin, Olga Sanina</div>
+                        <div class="affiliations">Technische Universität Darmstadt</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">The Landscape of Offline Finding Protocols: Privacy, Safety, Problems</span>
+                        <span class="paper-zh">離線尋找協定之全景：隱私、安全與挑戰</span>
+                        <div class="authors"><span class="label">Authors:</span> Akshaya Kumar, Carolina Ortega Perez, Anna Raymaker, Joseph Jaeger, Michael Specter, Thomas Ristenpart</div>
+                        <div class="affiliations">Georgia Institute of Technology, Cornell University, Cornell Tech</div>
+                    </div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">11:30 - 12:00</div>
+                    <div class="event-title">Lightning Talks｜閃電秀</div>
+                    <div class="chair">Chair: Nigel Smart</div>
+                </div>
+
+                <div class="event type-lunch">
+                    <div class="time-badge">12:00 - 13:20</div>
+                    <div class="event-title">Lunch｜午餐</div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">13:20 - 13:50</div>
+                    <div class="event-title">Invited Talk｜特邀演講</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">13:50 - 14:45</div>
+                    <div class="event-title">Session: PKI｜公鑰基礎設施</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">(Dis)patches from the Web PKI: Fina, Static CT, MTC, and PLANTS</span>
+                        <span class="paper-zh">Web PKI 之修補與訊息：Fina、靜態 CT、MTC 與 PLANTS</span>
+                        <div class="authors"><span class="label">Authors:</span> Luke Valenta, David Benjamin, Matthew McPherrin, Filippo Valsorda</div>
+                        <div class="affiliations">Cloudflare, Inc., Google, Let's Encrypt</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Private Key Leaks in the Wild: Insights from Certificate Transparency</span>
+                        <span class="paper-zh">野外私鑰外洩：來自憑證透明性之洞見</span>
+                        <div class="authors"><span class="label">Authors:</span> Guillaume VALADON, Gaëtan FERRY, David TAO, Philippe BONEFF</div>
+                        <div class="affiliations">GitGuardian, Google</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Self-Auditable Key Transparency at Scale</span>
+                        <span class="paper-zh">大規模可自我稽核之金鑰透明性</span>
+                        <div class="authors"><span class="label">Authors:</span> Hossein Hafezi, Alireza Shirzad, Benedikt Bunz, Joseph Bonneu</div>
+                        <div class="affiliations">New York University, University of Pennsylvania</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">14:45 - 15:15</div>
+                    <div class="event-title">Coffee Break｜茶敘</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">15:15 - 16:10</div>
+                    <div class="event-title">Session: Secure Channels in Practice<br>實務安全通道</div>
+                    <div class="chair">Chair: TBD</div>
+
+                    <div class="paper">
+                        <span class="paper-en">DTLS-SRTP: The Protocol Everyone is Using But Nobody is Checking</span>
+                        <span class="paper-zh">DTLS-SRTP：廣泛應用卻乏人檢視之協定</span>
+                        <div class="authors"><span class="label">Authors:</span> Martin Bach, Jean Paul Degabriele, Vukašin Karadžić, Lukas Knittel, Robert Merget</div>
+                        <div class="affiliations">TU Darmstadt, Technology Innovation Institute, Ruhr-University Bochum</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">The widespread popularity of insecure proprietary network encryption in the Android ecosystem</span>
+                        <span class="paper-zh">Android 生態系中不安全私有網路加密之泛濫</span>
+                        <div class="authors"><span class="label">Authors:</span> Mona Wang, Jeffrey Knockel, Zoë Reichert, Prateek Mittal, Jonathan Mayer</div>
+                        <div class="affiliations">UC Berkeley, The Citizen Lab, Princeton University</div>
+                    </div>
+                    <div class="paper">
+                        <span class="paper-en">Lessons Learned from Cryptography Shortcuts on the Example of TLS Session Tickets</span>
+                        <span class="paper-zh">TLS Session Tickets 密碼學實作捷徑之教訓</span>
+                        <div class="authors"><span class="label">Authors:</span> Sven Hebrok, Tim Leonhard Storm, Felix Matthias Cramer, Maximilian Radoy, Simon Nachtigall, Marcel Maehren, Nurullah Erinola, Juraj Somorovsky, Robert Merget, Jörg Schwenk</div>
+                        <div class="affiliations">Paderborn University, achelos GmbH, Ruhr University Bochum, Technology Innovation Institute</div>
+                    </div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">16:10 - 16:30</div>
+                    <div class="event-title">Closing Remarks｜閉幕致詞</div>
+                    <div class="chair">RWC 2026 General Chair</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
