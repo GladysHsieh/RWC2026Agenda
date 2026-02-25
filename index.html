@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1920, initial-scale=1.0">
-    <title>RWC 2026 Agenda - Complete Landscape</title>
+    <title>RWC 2026 Agenda - Complete Landscape (Updated)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
         
@@ -27,7 +27,7 @@
 
         .container {
             width: 100%;
-            min-width: 1600px; /* 強制寬度以確保橫向排版不擠壓 */
+            min-width: 1600px;
             background: white;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -36,7 +36,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         header {
             background: linear-gradient(to right, #003366, #004080);
             color: white;
@@ -48,10 +47,9 @@
         header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; }
         header p { margin: 8px 0 0; opacity: 0.9; font-size: 1.1rem; }
 
-        /* Grid Layout */
         .agenda-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr; /* 三欄等寬 */
+            grid-template-columns: 1fr 1fr 1fr;
             border-bottom: 1px solid var(--border);
         }
 
@@ -62,7 +60,6 @@
         }
         .day-column:last-child { border-right: none; }
 
-        /* Day Header */
         .day-header {
             background-color: #f8fafc;
             color: var(--primary);
@@ -82,7 +79,6 @@
             flex-grow: 1;
         }
 
-        /* Event Card */
         .event {
             background: #fff;
             border: 1px solid var(--border);
@@ -93,15 +89,13 @@
             transition: transform 0.2s;
         }
 
-        /* Event Types (Left Border Color) */
-        .type-session { border-left: 5px solid #005b99; } /* 藍：一般議程 */
-        .type-break { border-left: 5px solid #ffca28; background-color: #fffdf5; } /* 黃：休息 */
-        .type-special { border-left: 5px solid #7e57c2; background-color: #fbfaff; } /* 紫：特邀演講/Keynote */
-        .type-lunch { border-left: 5px solid #48bb78; background-color: #f0fff4; } /* 綠：午餐 */
-        .type-social { border-left: 5px solid #ed8936; background-color: #fffaf0; } /* 橘：晚宴/社交 */
-        .type-reg { border-left: 5px solid #718096; background-color: #f7fafc; } /* 灰：報到 */
+        .type-session { border-left: 5px solid #005b99; }
+        .type-break { border-left: 5px solid #ffca28; background-color: #fffdf5; }
+        .type-special { border-left: 5px solid #7e57c2; background-color: #fbfaff; }
+        .type-lunch { border-left: 5px solid #48bb78; background-color: #f0fff4; }
+        .type-social { border-left: 5px solid #ed8936; background-color: #fffaf0; }
+        .type-reg { border-left: 5px solid #718096; background-color: #f7fafc; }
 
-        /* Time & Title */
         .time-badge {
             display: inline-block;
             background: #edf2f7;
@@ -128,7 +122,6 @@
             margin-bottom: 10px;
         }
 
-        /* Paper Details */
         .paper {
             margin-top: 12px;
             padding-top: 10px;
@@ -171,11 +164,10 @@
             font-size: 0.8rem;
         }
 
-        /* Print Settings */
         @media print {
             body { padding: 0; background: white; -webkit-print-color-adjust: exact; }
             .container { width: 100%; min-width: 0; box-shadow: none; border-radius: 0; }
-            .agenda-grid { display: grid !important; } /* 強制列印時保持Grid */
+            .agenda-grid { display: grid !important; }
             .day-header { position: static; border: 1px solid #000; background: #eee; }
             .event { break-inside: avoid; border: 1px solid #ccc; }
         }
@@ -185,8 +177,7 @@
 
 <div class="container">
     <header>
-        <h1>2026年真實世界密碼學會議 </h1>
-        <h1>Real World Crypto Symposium 2026 - Taipei Agenda</h1>
+        <h1>Real World Crypto 2026 - Taipei Agenda</h1>
         <p>完整詳細議程表 (Full Detailed Schedule) | March 9 - 11, 2026</p>
     </header>
 
@@ -210,7 +201,7 @@
                 <div class="event type-session">
                     <div class="time-badge">09:15 - 10:35</div>
                     <div class="event-title">Session: Beyond Secure Messaging<br>安全通訊的下一篇章</div>
-                    <div class="chair">Chair｜主持人：Cas Cremers</div>
+                    <div class="chair">Chair｜主持人：TBD</div>
 
                     <div class="paper">
                         <span class="paper-en">A Practical Wrapper Protocol for Metadata-Hiding in Messaging</span>
@@ -262,7 +253,7 @@
                 <div class="event type-session">
                     <div class="time-badge">14:00 - 15:10</div>
                     <div class="event-title">Session: Verification and Testing<br>驗證與測試</div>
-                    <div class="chair">Chair: Chitchanok Chuengsatiansup</div>
+                    <div class="chair">Chair: TBD</div>
 
                     <div class="paper">
                         <span class="paper-en">Finding Bugs and Features Using Cryptographically-Informed Functional Testing</span>
@@ -357,7 +348,7 @@
                 <div class="event type-session">
                     <div class="time-badge">09:00 - 10:20</div>
                     <div class="event-title">Session: Real World Privacy<br>真實世界中的隱私</div>
-                    <div class="chair">Chair: Henry Corrigan-Gibbs</div>
+                    <div class="chair">Chair: TBD</div>
 
                     <div class="paper">
                         <span class="paper-en">Deploying Research: On Building and Shipping an Anonymous Whistleblowing System</span>
@@ -393,6 +384,12 @@
                 <div class="event type-special">
                     <div class="time-badge">10:50 - 11:20</div>
                     <div class="event-title">Invited Talk｜特邀演講</div>
+                    <div class="paper">
+                        <span class="paper-en">Defending the Open Internet: TLS, Passkeys, and the Privacy Stakes of Digital Identity</span>
+                        <span class="paper-zh">捍衛開放網際網路：TLS、通行密鑰與數位身分的隱私利害關係</span>
+                        <div class="authors"><span class="label">Speaker:</span> Christopher Harrell</div>
+                        <div class="affiliations">Yubico</div>
+                    </div>
                 </div>
 
                 <div class="event type-session">
@@ -421,7 +418,7 @@
                 <div class="event type-session">
                     <div class="time-badge">13:30 - 14:50</div>
                     <div class="event-title">Session: Post-Quantum Constructions<br>後量子建構</div>
-                    <div class="chair">Chair: Douglas Stebila</div>
+                    <div class="chair">Chair: TBD</div>
 
                     <div class="paper">
                         <span class="paper-en">Keeping up with the KEMbiners</span>
@@ -475,7 +472,7 @@
                 <div class="event type-session">
                     <div class="time-badge">16:05 - 17:35</div>
                     <div class="event-title">Session: Cryptography and Society<br>密碼學與社會</div>
-                    <div class="chair">Chair: Nick Sullivan</div>
+                    <div class="chair">Chair: TBD</div>
 
                     <div class="paper">
                         <span class="paper-en">What is cryptography hiding from itself?</span>
@@ -590,12 +587,18 @@
                 <div class="event type-special">
                     <div class="time-badge">13:20 - 13:50</div>
                     <div class="event-title">Invited Talk｜特邀演講</div>
+                    <div class="paper">
+                        <span class="paper-en">A bird's-eye view of cryptographic practice</span>
+                        <span class="paper-zh">密碼學實務之鳥瞰</span>
+                        <div class="authors"><span class="label">Speaker:</span> Nadia Heninger</div>
+                        <div class="affiliations">University of California, San Diego</div>
+                    </div>
                 </div>
 
                 <div class="event type-session">
                     <div class="time-badge">13:50 - 14:45</div>
                     <div class="event-title">Session: PKI｜公鑰基礎設施</div>
-                    <div class="chair">Chair: Paul Grubbs</div>
+                    <div class="chair">Chair: TBD</div>
 
                     <div class="paper">
                         <span class="paper-en">(Dis)patches from the Web PKI: Fina, Static CT, MTC, and PLANTS</span>
@@ -660,17 +663,4 @@
 </div>
 
 </body>
-
 </html>
-
-
-   
-           <a href="RWC2026_Agenda.pdf">下載 PDF</a>
-            </a>
-            <p>※ 若未自動下載，請右鍵另存新檔</p>
-
-
-
-
-
-
