@@ -26,8 +26,9 @@
         }
 
         .container {
-            width: 100%;
-            min-width: 1600px;
+            width: 98%;
+            min-width: 1800px;
+            margin: 20px auto;
             background: white;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -35,7 +36,23 @@
             display: flex;
             flex-direction: column;
         }
-
+        /* 修正：加入媒體查詢，當螢幕太小時改為單欄，避免擠壓 */
+        @media (max-width: 1200px) {
+            .agenda-grid {
+                grid-template-columns: 1fr; /* 螢幕不夠寬時轉為垂直排列 */
+            }
+            .day-column {
+                border-right: none;
+                border-bottom: 2px solid var(--border);
+            }
+        }
+        
+        /* 修正：優化 event 內容溢出處理 */
+        .event {
+            word-wrap: break-word; /* 避免長英文標題撐開容器 */
+            overflow: hidden;
+        }
+        
         header {
             background: linear-gradient(to right, #003366, #004080);
             color: white;
