@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RWC 2026 Agenda - Taipei (Fixed & Completed)</title>
+    <title>RWC 2026 Agenda - Taipei Fixed & Detailed</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
         
         :root {
             --primary: #003366;
             --secondary: #005b99;
+            --accent: #ffca28;
             --bg-color: #f0f2f5;
             --text-main: #2d3748;
             --text-light: #718096;
@@ -20,49 +21,45 @@
             font-family: 'Roboto', 'Noto Sans TC', sans-serif;
             background-color: var(--bg-color);
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             color: var(--text-main);
             box-sizing: border-box;
         }
 
        .container {
-            width: 98%;
+            width: 100%;
             max-width: 1600px; /* 修正：使用 max-width 防止小螢幕跑版 */
             margin: 0 auto;
             background: white;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
         header {
-            background: linear-gradient(to right, #003366, #004080);
+            background: linear-gradient(135deg, #003366, #005b99);
             color: white;
-            padding: 25px;
+            padding: 30px 20px;
             text-align: center;
-            border-bottom: 4px solid #ffca28;
+            border-bottom: 5px solid var(--accent);
         }
 
-        header h1 { margin: 0; font-size: 2rem; letter-spacing: 1px; }
-        header p { margin: 8px 0 0; opacity: 0.9; font-size: 1.1rem; }
+        header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; }
+        header p { margin: 10px 0 0; opacity: 0.9; font-size: 1.1rem; }
 
        .agenda-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 三欄佈局 */
+            grid-template-columns: repeat(3, 1fr); /* 大螢幕三欄佈局 */
+            gap: 0;
             border-bottom: 1px solid var(--border);
         }
 
-        /* 修正：增加響應式媒體查詢，窄螢幕時改為單欄 */
+        /* 響應式斷點：寬度小於 1200px 時改為單欄排列 */
         @media (max-width: 1200px) {
-           .agenda-grid {
-                grid-template-columns: 1fr;
-            }
-           .day-column {
-                border-right: none!important;
-                border-bottom: 2px solid var(--border);
-            }
+           .agenda-grid { grid-template-columns: 1fr; }
+           .day-column { border-right: none!important; border-bottom: 2px solid var(--border); }
         }
 
        .day-column {
@@ -75,14 +72,15 @@
        .day-header {
             background-color: #f8fafc;
             color: var(--primary);
-            padding: 15px;
+            padding: 18px;
             text-align: center;
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             border-bottom: 2px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
        .events-wrapper { padding: 15px; flex-grow: 1; }
@@ -90,37 +88,40 @@
        .event {
             background: #fff;
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
-            word-break: break-word; /* 修正：防止長字撐開版面 */
+            position: relative;
+            word-break: break-word; /* 防止長字溢出 */
         }
 
-       .type-session { border-left: 5px solid #005b99; }
-       .type-break { border-left: 5px solid #ffca28; background-color: #fffdf5; }
-       .type-special { border-left: 5px solid #7e57c2; background-color: #fbfaff; }
-       .type-lunch { border-left: 5px solid #48bb78; background-color: #f0fff4; }
-       .type-social { border-left: 5px solid #ed8936; background-color: #fffaf0; }
-       .type-reg { border-left: 5px solid #718096; background-color: #f7fafc; }
+        /* 類型標籤色彩 */
+       .type-session { border-left: 6px solid #005b99; }
+       .type-break { border-left: 6px solid #ffca28; background-color: #fffdf5; }
+       .type-special { border-left: 6px solid #7e57c2; background-color: #fbfaff; }
+       .type-lunch { border-left: 6px solid #48bb78; background-color: #f0fff4; }
+       .type-social { border-left: 6px solid #ed8936; background-color: #fffaf0; }
+       .type-reg { border-left: 6px solid #718096; background-color: #f7fafc; }
 
        .time-badge {
             display: inline-block;
             background: #edf2f7;
-            color: #4a5568;
+            color: #2d3748;
             font-size: 0.85rem;
             font-weight: 700;
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-       .event-title { font-size: 1.1rem; font-weight: 700; color: #1a202c; margin-bottom: 4px; }
-       .chair { font-size: 0.9rem; color: #718096; font-style: italic; margin-bottom: 10px; }
+       .event-title { font-size: 1.1rem; font-weight: 700; color: #1a202c; line-height: 1.4; margin-bottom: 5px; }
+       .chair { font-size: 0.9rem; color: #718096; font-style: italic; margin-bottom: 8px; }
+
        .paper { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #cbd5e0; }
-       .paper-en { display: block; font-weight: 600; color: #2b6cb0; font-size: 0.95rem; }
-       .paper-zh { display: block; color: #2d3748; font-size: 0.9rem; margin-top: 2px; }
-       .authors { font-size: 0.85rem; color: #4a5568; margin-top: 5px; }
-       .label { font-weight: 600; color: #718096; }
+       .paper-en { display: block; font-weight: 600; color: #2b6cb0; font-size: 0.95rem; line-height: 1.3; }
+       .paper-zh { display: block; color: #4a5568; font-size: 0.85rem; margin-top: 3px; font-weight: 500; }
+       .authors { font-size: 0.85rem; color: #2d3748; margin-top: 6px; line-height: 1.4; }
+       .label { font-weight: 700; color: #718096; text-transform: uppercase; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -128,7 +129,7 @@
 <div class="container">
     <header>
         <h1>Real World Crypto 2026 - Taipei Agenda</h1>
-        <p>研討會詳細議程表 | March 9 - 11, 2026 @ 台北萬豪酒店</p>
+        <p>全端式資安實務技術議程 | March 9 - 11, 2026 @ 台北萬豪酒店</p>
     </header>
 
     <div class="agenda-grid">
@@ -137,29 +138,71 @@
             <div class="events-wrapper">
                 <div class="event type-reg">
                     <div class="time-badge">08:00 - 09:00</div>
-                    <div class="event-title">Registration｜報到</div>
+                    <div class="event-title">Registration｜現場報到</div>
                 </div>
+
                 <div class="event type-special">
                     <div class="time-badge">09:00 - 09:15</div>
-                    <div class="event-title">Welcome｜開幕致詞</div>
-                    <div class="chair">General Chairs: Bo-Yin Yang, Kai-Min Chung</div>
+                    <div class="event-title">Welcome｜大會開幕</div>
+                    <div class="chair">Chairs: Bo-Yin Yang, Kai-Min Chung </div>
                 </div>
+
                 <div class="event type-session">
                     <div class="time-badge">09:15 - 10:35</div>
                     <div class="event-title">Session: Beyond Secure Messaging</div>
                     <div class="paper">
-                        <span class="paper-en">Signal Lost (Integrity): Sum of its Protocols</span>
-                        <div class="authors">K. Paterson, et al.</div>
+                        <span class="paper-en">Signal Lost (Integrity): The Signal App is More than the Sum of its Protocols</span>
+                        <div class="authors">K. Paterson, P. Schwabe, et al. </div>
                     </div>
                 </div>
+
                 <div class="event type-special">
-                    <div class="time-badge">11:05 - 11:35</div>
-                    <div class="event-title">Levchin Prize 2026</div>
-                    <div class="authors">Diffie-Hellman & Tamarin Prover Team</div>
+                    <div class="time-badge">11:05 - 12:05</div>
+                    <div class="event-title">Levchin Prize & Invited Talk I</div>
+                    <div class="chair">Awarding Excellence in Real-World Cryptography</div>
                 </div>
+
+                <div class="event type-lunch">
+                    <div class="time-badge">12:05 - 14:00</div>
+                    <div class="event-title">Networking Lunch｜午餐</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">14:00 - 15:10</div>
+                    <div class="event-title">Session: Verification and Testing</div>
+                    <div class="paper">
+                        <span class="paper-en">Formosa Crypto: End-to-End Formally Verified Crypto Software</span>
+                        <div class="authors">Manuel Barbosa, Peter Schwabe, et al.</div>
+                    </div>
+                </div>
+
+                <div class="event type-special">
+                    <div class="time-badge">15:15 - 15:45</div>
+                    <div class="event-title">Invited Talk｜特邀演講</div>
+                    <div class="paper">
+                        <span class="paper-en">Real-Time FHE Applications and the Era of Encrypted AI</span>
+                        <span class="paper-zh">即時全同態加密（FHE）應用與加密 AI 時代</span>
+                        <div class="authors"><span class="label">Speaker:</span> Jung Hee Cheon (Seoul National Univ. & CryptoLab)</div>
+                    </div>
+                </div>
+
+                <div class="event type-break">
+                    <div class="time-badge">15:45 - 16:20</div>
+                    <div class="event-title">Coffee Break｜茶敘交流</div>
+                </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">16:20 - 18:00</div>
+                    <div class="event-title">Session: Hardware Security｜硬體安全</div>
+                    <div class="paper">
+                        <span class="paper-en">Migrating a Silicon Root of Trust to Post-Quantum Crypto</span>
+                        <div class="authors">Andrew 'bunnie' Huang, et al.</div>
+                    </div>
+                </div>
+
                 <div class="event type-social">
                     <div class="time-badge">18:45 - 20:45</div>
-                    <div class="event-title">Welcome Reception</div>
+                    <div class="event-title">Welcome Reception｜歡迎晚宴</div>
                 </div>
             </div>
         </div>
@@ -171,22 +214,41 @@
                     <div class="time-badge">09:00 - 10:20</div>
                     <div class="event-title">Session: Real World Privacy</div>
                 </div>
+
                 <div class="event type-special">
                     <div class="time-badge">10:50 - 11:20</div>
-                    <div class="event-title">Invited Talk: Digital Identity</div>
+                    <div class="event-title">Invited Talk: Digital Identity Stakes</div>
                     <div class="authors">Christopher Harrell (Yubico)</div>
                 </div>
+
+                <div class="event type-session">
+                    <div class="time-badge">11:20 - 12:00</div>
+                    <div class="event-title">Session: Login Security｜登入安全</div>
+                    <div class="paper">
+                        <span class="paper-en">Zero Knowledge (About) Encryption: On the Security of Cloud-based Password Managers</span>
+                        <span class="paper-zh">對加密的「零知識」：論雲端密碼管理工具之安全性</span>
+                        <div class="authors"><span class="label">Authors:</span> Matilda Backendal, Kenneth Paterson, Matteo Scarlata, Giovanni Torrisi (ETH Zurich)</div>
+                    </div>
+                </div>
+
                 <div class="event type-session">
                     <div class="time-badge">13:30 - 14:50</div>
                     <div class="event-title">Session: Post-Quantum Constructions</div>
+                    <div class="chair">Chair: Douglas Stebila</div>
                 </div>
+
                 <div class="event type-session">
                     <div class="time-badge">16:05 - 17:35</div>
                     <div class="event-title">Session: Cryptography and Society</div>
                     <div class="paper">
                         <span class="paper-en">CRA and Cryptography: The Story Thus Far</span>
-                        <div class="authors">Markku-Juhani Saarinen</div>
+                        <div class="authors">Markku-Juhani Saarinen [1]</div>
                     </div>
+                </div>
+
+                <div class="event type-social">
+                    <div class="time-badge">17:45 - 19:45</div>
+                    <div class="event-title">Beer & Food Night｜啤酒與輕食</div>
                 </div>
             </div>
         </div>
@@ -198,33 +260,34 @@
                     <div class="time-badge">09:00 - 10:20</div>
                     <div class="event-title">Session: Privacy-Enhancing Tech (PETs)</div>
                     <div class="paper">
-                        <span class="paper-en">Counter Galois Onion (CGO) for Tor</span>
-                        <span class="paper-zh">Tor 之高速不可延展洋蔥加密</span>
+                        <span class="paper-en">Counter Galois Onion (CGO) for Tor </span>
                     </div>
                 </div>
+
                 <div class="event type-session">
                     <div class="time-badge">10:50 - 12:00</div>
-                    <div class="event-title">Session: Bluetooth and Infrastructure</div>
-                    <div class="paper">
-                        <span class="paper-en">Security of Bluetooth: Analyzing a Leviathan</span>
-                    </div>
+                    <div class="event-title">Session: Bluetooth & Infrastructure</div>
                 </div>
+
                 <div class="event type-special">
                     <div class="time-badge">13:30 - 14:15</div>
-                    <div class="event-title">Invited Talk: Bird's-Eye View</div>
-                    <div class="authors">Speaker: Nadia Heninger</div>
+                    <div class="event-title">Invited Talk: Bird's-Eye View </div>
+                    <div class="authors"><span class="label">Speaker:</span> Nadia Heninger (UCSD)</div>
                 </div>
+
                 <div class="event type-session">
                     <div class="time-badge">14:15 - 15:30</div>
                     <div class="event-title">Session: PKI Dispatches</div>
                     <div class="paper">
-                        <span class="paper-en">2,622 Valid Certificates Exposed: Key Leaks Study</span>
+                        <span class="paper-en">2,622 Valid Certificates Exposed: Key Leaks Study </span>
                         <div class="authors">GitGuardian & Google Research</div>
                     </div>
                 </div>
+
                 <div class="event type-special">
                     <div class="time-badge">16:00 - 17:00</div>
                     <div class="event-title">Lightning Talks & Closing Remarks</div>
+                    <div class="chair">主持人：大會主席團 [2]</div>
                 </div>
             </div>
         </div>
